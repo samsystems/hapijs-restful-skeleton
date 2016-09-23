@@ -1,0 +1,14 @@
+---
+language: node_js
+node_js:
+  - '6'
+  - '5'
+before_script:
+  - npm install
+cache:
+  directories:
+    - node_modules
+notifications:
+  slack: {organization:Id#channel}
+env:
+  - ENV="development"
