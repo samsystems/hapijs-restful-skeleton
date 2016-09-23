@@ -1,0 +1,35 @@
+{
+  "name": "service-skeleton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "lab -t 100 test",
+    "start": "nodemon --watch app --watch bootstrap.js bootstrap.js",
+    "tdd": "nodemon --exec \"npm test\" --watch app --watch test --watch server.js",
+    "lint": "eslint index.js app test || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samsystems/service-skeleton.git"
+  },
+  "author": "development@samsystems.io",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samsystems/service-skeleton/issues"
+  },
+  "homepage": "https://github.com/samsystems/service-skeleton#readme",
+  "devDependencies": {
+    "code": "^2.0.1",
+    "eslint": "^2.5.1",
+    "good-console": "^5.0.0",
+    "lab": "^10.3.0",
+    "nodemon": "^1.9.1"
+  },
+  "dependencies": {
+    "good": "^6.1.2",
+    "babel-core": "^6.14.0",
+    "babel-preset-es2015": "^6.14.0",
+    "hapi": "^15.0.3"
+  }
+}
