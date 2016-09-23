@@ -1,6 +1,6 @@
 var Code = require('code');
 var Lab = require('lab');
-var hello = require('../src/server');
+var ping = require('../src/index');
 var mockServer = require('./mocks/server');
 
 var lab = exports.lab = Lab.script();
