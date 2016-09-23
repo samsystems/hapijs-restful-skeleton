@@ -1,18 +1,17 @@
 # Hapijs RESTful Example
-======================
 This is a Hapi.js project to build RESTful API's using ES6.
 
 ## What's inside
-----------------
- - Hapi.js
- - ES6
+ - Hapi.js http://hapijs.com/
+ - ES6 https://babeljs.io/docs/learn-es2015/
  - Lab
- - Good
- - Babel
- - Eslint
+ - Good https://github.com/hapijs/good
+ - Boom https://github.com/hapijs/boom
+ - Babel https://www.npmjs.com/package/@types/babel-core/tutorial
+ - Eslint http://eslint.org/
+ - direnv http://direnv.net/
 
 ## Setup
------
 Clone the repository and install the dependencies.
 
     $ git clone https://github.com/samsystems/hapi-restful-skeleton.git my-project
@@ -21,7 +20,6 @@ Clone the repository and install the dependencies.
     $ npm start
 
 ## Testing
----------
 Two options exists to run tests, the first one is for development process and aims to practice Test Driven Development.
 
     $ npm run tdd
@@ -31,15 +29,12 @@ Two options exists to run tests, the first one is for development process and ai
     $ npm test
 
 ## Linting
----------
 Ensure the quality of your code with eslint.
 
-    $ npm run lint
+    $ npm run linter
 
 ## Contribution
----------------
 If you have ideas or find an error feel free to submit a PR.
 
 ## License
--------
 Licensed under the MIT license.

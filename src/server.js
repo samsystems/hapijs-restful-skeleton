@@ -6,18 +6,18 @@ server.connection( {
     port: 8080
 });
 
-function sayHello(request, reply) {
+function ping(request, reply) {
 
     reply({
-        hello: request.params.name
+        pong: new Date()
     });
 }
 
 server.route({
 
     method: 'GET',
-    path: '/hello/{name}',
-    handler: sayHello
+    path: '/',
+    handler: ping
 });
 
 server.start(err => {
