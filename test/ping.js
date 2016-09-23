@@ -17,7 +17,7 @@ before((done) => {
     mockServer(function(obj) {
         server = obj;
         server.register([{
-            register: hello
+            register: ping
         }], done);
     });
 });
@@ -27,36 +27,23 @@ after((done) => {
     server.stop(done);
 });
 
-describe('Example hello api', function() {
+describe('Get ping call', function() {
     'use strict';
 
-    it('says hello world', function(done) {
+    it('received pong', function(done) {
         var options = {
             method: 'GET',
-            url: '/hello/world'
-        };
-
-        server.inject(options, (resp) => {
-            expect(resp.statusCode).to.equal(200);
-            expect(resp.request.response.source).to.deep.equal({hello: 'world'});
-
-            done();
-        });
-    });
-
-    it('says hello coder', function(done) {
-        var options = {
-            method: 'GET',
-            url: '/hello/coder'
+            url: '/'
         };
 
         server.inject(options, (resp) => {
             expect(resp.statusCode).to.equal(200);
             expect(resp.request.response.source).to.deep.equal({
-                hello: 'coder'
+                pong: new Date()
             });
 
             done();
         });
     });
+
 });
