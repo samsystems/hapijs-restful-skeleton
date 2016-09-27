@@ -1,8 +1,8 @@
-const Glue = require('glue');
-const manifest = require('./manifest');
+import Glue from 'glue';
+import manifest from './manifest';
 
 const composeOptions = {
-    relativeTo: __dirname
+    relativeTo: `${process.cwd()}/src/plugins`
 };
 
-module.exports = Glue.compose.bind(Glue, manifest.get('/'), composeOptions);
+export default Glue.compose.bind(Glue, manifest.get('/'), composeOptions);

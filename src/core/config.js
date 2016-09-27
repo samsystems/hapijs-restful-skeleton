@@ -1,4 +1,4 @@
-const Confidence = require('confidence');
+import Confidence from 'confidence';
 
 const criteria = {
     env: process.env.NODE_ENV
@@ -58,14 +58,4 @@ const config = {
     }
 };
 
-const store = new Confidence.Store(config);
-
-exports.get = function (key) {
-
-    return store.get(key, criteria);
-};
-
-exports.meta = function (key) {
-
-    return store.meta(key, criteria);
-};
+export default new Confidence.Store(config);
