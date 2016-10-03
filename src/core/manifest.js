@@ -1,5 +1,5 @@
-const Confidence = require('confidence');
-const Config = require('./config');
+import Confidence from 'confidence';
+import config from './config';
 
 const criteria = {
     env: process.env.NODE_ENV
@@ -18,8 +18,8 @@ const manifest = {
         }
     },
     connections: [{
-        host: Config.get('/host/api'),
-        port: Config.get('/port/api'),
+        host: config.get('/host/api'),
+        port: config.get('/port/api'),
         labels: ['api']
     }],
     registrations: [
@@ -33,20 +33,10 @@ const manifest = {
             plugin: 'vision'
         },
         {
-            plugin: {
-                register: 'hapi-swagger',
-                options: {
-                    consumes: ['application/hal+json'],
-                    produces: ['application/hal+json'],
-                    info: {
-                        title: 'Hapijs Restful Skeleton',
-                        version: require('../../package').version
-                    }
-                }
-            }
+            plugin: 'scooter'
         },
         {
-            plugin: 'halacious'
+            plugin: 'hapi-swagger'
         },
         {
             plugin: {
@@ -55,24 +45,49 @@ const manifest = {
                     ops: {
                         interval: 5000
                     },
-                    reporters: Config.get('/good/reporters')
+                    reporters: config.get('/good/reporters')
                 }
             }
         },
         {
             plugin: 'hapi-info'
+        },
+        {
+            plugin: {
+                register: './index',
+                options: {
+                    routes: {
+                        cwd: `${process.cwd()}/src/routes`,
+                        pattern: '**/*.js',
+                        glob: {
+                            cwd: `${process.cwd()}/src/routes`
+                        }
+                    },
+                    handlers: {
+                        cwd: `${process.cwd()}/src/handlers`,
+                        pattern: '**/*.js',
+                        glob: {
+                            cwd: `${process.cwd()}/src/handlers`
+                        }
+                    },
+                    methods: {
+                        cwd: `${process.cwd()}/src/methods`,
+                        pattern: '**/*.js',
+                        glob: {
+                            cwd: `${process.cwd()}/src/methods`
+                        }
+                    },
+                    preHandlers: {
+                        cwd: `${process.cwd()}/src/pre-handlers`,
+                        pattern: '**/*.js',
+                        glob: {
+                            cwd: `${process.cwd()}/src/pre-handlers`
+                        }
+                    }
+                }
+            }
         }
     ]
 };
 
-const store = new Confidence.Store(manifest);
-
-exports.get = function (key) {
-
-    return store.get(key, criteria);
-};
-
-exports.meta = function (key) {
-
-    return store.meta(key, criteria);
-};
+export default new Confidence.Store(manifest);
