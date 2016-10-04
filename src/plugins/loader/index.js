@@ -1,8 +1,8 @@
-import glob from 'glob';
-import camelCase from 'camelcase';
-import path from 'path';
-import async from 'async';
-import _ from 'lodash';
+const glob = require('glob');
+const camelCase = require('camelcase');
+const path = require('path');
+const async = require('async');
+const _ = require('lodash');
 
 const internals = {};
 
@@ -55,7 +55,7 @@ internals.register = module.exports = (server, options, next) => {
 
 internals.register.attributes = {
     multi: false,
-    pkg: require('../../package.json')
+    pkg: require('../../../package.json')
 };
 
 const loadFiles = (pattern, options) => {

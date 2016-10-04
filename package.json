@@ -2,9 +2,9 @@
   "name": "service-skeleton",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "bootstrap.js",
   "scripts": {
-    "test": "lab -t 100 test",
+    "test": "lab -t 1 test",
     "start": "nodemon --watch app --watch bootstrap.js bootstrap.js",
     "tdd": "nodemon --exec \"npm test\" --watch app --watch test --watch server.js",
     "linter": "eslint index.js app test || true"
@@ -19,10 +19,10 @@
     "url": "https://github.com/samsystems/service-skeleton/issues"
   },
   "homepage": "https://github.com/samsystems/service-skeleton#readme",
+  "engines": {
+    "node": ">=6.7.0"
+  },
   "devDependencies": {
-    "babel-cli": "^6.14.0",
-    "babel-core": "^6.14.0",
-    "babel-preset-es2015": "^6.14.0",
     "code": "^4.0.0",
     "eslint": "^3.5.0",
     "good-console": "^6.1.2",
@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "async": "^2.0.1",
-    "babel-eslint": "^6.1.2",
     "blipp": "^2.3.0",
     "camelcase": "^3.0.0",
     "confidence": "^3.0.1",

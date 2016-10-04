@@ -1,5 +1,5 @@
-import Confidence from 'confidence';
-import config from './config';
+const Confidence = require('confidence');
+const config = require('./config');
 
 const criteria = {
     env: process.env.NODE_ENV
@@ -54,40 +54,11 @@ const manifest = {
         },
         {
             plugin: {
-                register: './index',
-                options: {
-                    routes: {
-                        cwd: `${process.cwd()}/src/routes`,
-                        pattern: '**/*.js',
-                        glob: {
-                            cwd: `${process.cwd()}/src/routes`
-                        }
-                    },
-                    handlers: {
-                        cwd: `${process.cwd()}/src/handlers`,
-                        pattern: '**/*.js',
-                        glob: {
-                            cwd: `${process.cwd()}/src/handlers`
-                        }
-                    },
-                    methods: {
-                        cwd: `${process.cwd()}/src/methods`,
-                        pattern: '**/*.js',
-                        glob: {
-                            cwd: `${process.cwd()}/src/methods`
-                        }
-                    },
-                    preHandlers: {
-                        cwd: `${process.cwd()}/src/pre-handlers`,
-                        pattern: '**/*.js',
-                        glob: {
-                            cwd: `${process.cwd()}/src/pre-handlers`
-                        }
-                    }
-                }
+                register: './loader',
+                options: config.get('/loader')
             }
         }
     ]
 };
 
-export default new Confidence.Store(manifest);
+module.exports = new Confidence.Store(manifest);
