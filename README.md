@@ -4,10 +4,9 @@ This is a Hapi.js project to build RESTful API's using ES6.
 ## What's inside
  - Hapi.js http://hapijs.com/
  - ES6 https://babeljs.io/docs/learn-es2015/
- - Lab
+ - Lab https://github.com/hapijs/lab
  - Good https://github.com/hapijs/good
  - Boom https://github.com/hapijs/boom
- - Babel https://www.npmjs.com/package/@types/babel-core/tutorial
  - Eslint http://eslint.org/
  - direnv http://direnv.net/
 

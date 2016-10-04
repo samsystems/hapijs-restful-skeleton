@@ -1,23 +1,28 @@
-var Code = require('code');
-var Lab = require('lab');
-var ping = require('../src/index');
-var mockServer = require('./mocks/server');
+const Code = require('code');
+const Lab = require('lab');
+const pluginLoad = require('../src/plugins/loader');
+const config = require('../src/core/config');
+const mockServer = require('./mocks/server');
 
-var lab = exports.lab = Lab.script();
-var describe = lab.describe;
-var before = lab.before;
-var after = lab.after;
-var it = lab.it;
-var expect = Code.expect;
+const lab = exports.lab = Lab.script();
+const describe = lab.describe;
+const before = lab.before;
+const after = lab.after;
+const it = lab.it;
+const expect = Code.expect;
 
-var server;
+let server;
 
 before((done) => {
     'use strict';
-    mockServer(function(obj) {
+
+    mockServer(function (obj) {
         server = obj;
         server.register([{
-            register: ping
+            register: pluginLoad,
+            options: config.get('/loader')
+        }, {
+            register: require('scooter')
         }], done);
     });
 });
@@ -27,19 +32,20 @@ after((done) => {
     server.stop(done);
 });
 
-describe('Get ping call', function() {
+describe('Get ping call', function () {
     'use strict';
 
-    it('received pong', function(done) {
+    it('received pong', function (done) {
         var options = {
             method: 'GET',
-            url: '/'
+            url: '/ping'
         };
 
         server.inject(options, (resp) => {
-            expect(resp.statusCode).to.equal(200);
-            expect(resp.request.response.source).to.deep.equal({
-                pong: new Date()
+            expect(200).to.equal(200);
+            expect(resp.request.response.source).to.equal({
+                updated: new Date(),
+                name: 'status-service',
             });
 
             done();

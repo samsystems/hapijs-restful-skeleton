@@ -1,4 +1,4 @@
-import Confidence from 'confidence';
+const Confidence = require('confidence');
 
 const criteria = {
     env: process.env.NODE_ENV
@@ -29,7 +29,7 @@ const config = {
                     {
                         module: 'good-squeeze',
                         name: 'Squeeze',
-                        args: [{ log: '*', response: '*' }]
+                        args: [{log: '*', response: '*'}]
                     },
                     {
                         module: 'good-console'
@@ -42,7 +42,7 @@ const config = {
                     {
                         module: 'good-squeeze',
                         name: 'Squeeze',
-                        args: [{ ops: '*' }]
+                        args: [{ops: '*'}]
                     },
                     {
                         module: 'good-squeeze',
@@ -55,7 +55,37 @@ const config = {
                 ]
             }
         }
+    },
+    loader: {
+        routes: {
+            cwd: `${process.cwd()}/src/routes`,
+            pattern: '**/*.js',
+            glob: {
+                cwd: `${process.cwd()}/src/routes`
+            }
+        },
+        handlers: {
+            cwd: `${process.cwd()}/src/handlers`,
+            pattern: '**/*.js',
+            glob: {
+                cwd: `${process.cwd()}/src/handlers`
+            }
+        },
+        methods: {
+            cwd: `${process.cwd()}/src/methods`,
+            pattern: '**/*.js',
+            glob: {
+                cwd: `${process.cwd()}/src/methods`
+            }
+        },
+        preHandlers: {
+            cwd: `${process.cwd()}/src/pre-handlers`,
+            pattern: '**/*.js',
+            glob: {
+                cwd: `${process.cwd()}/src/pre-handlers`
+            }
+        }
     }
 };
 
-export default new Confidence.Store(config);
+module.exports = new Confidence.Store(config);
