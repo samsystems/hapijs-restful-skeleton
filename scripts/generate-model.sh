@@ -2,8 +2,8 @@
 allattr=''
 
 function run {
-  echo "sequelize model:create --name $model --attributes $allattr"
-  sequelize model:create --name $model --attributes $allattr --config src/core/db-config.json --models-path src/models --migrations-path src/data/migrations
+  echo "sequelize model:create --name $model --attributes $allattr --config ${CONFIG} --models-path ${MODELS_PATH} --migrations-path ${MIGRATIONS_PATH}"
+  sequelize model:create --name $model --attributes $allattr --config ${CONFIG} --models-path ${MODELS_PATH} --migrations-path ${MIGRATIONS_PATH}
 }
 
 function addType(){
