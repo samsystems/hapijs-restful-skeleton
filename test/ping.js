@@ -47,8 +47,8 @@ describe('Get ping call', function () {
 
             expect(200).to.equal(200);
             expect(resp.request.response.source).to.equal({
-                "name": "status-service",
-                "agent": agent
+                'name': 'status-service',
+                'agent': agent
             });
 
             done();
