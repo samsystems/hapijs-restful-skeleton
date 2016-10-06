@@ -42,10 +42,13 @@ describe('Get ping call', function () {
         };
 
         server.inject(options, (resp) => {
+            const pingService = resp.request.server.methods.ping;
+            const agent = pingService.logAgent(resp.request.pre.collectAgentInfo);
+
             expect(200).to.equal(200);
             expect(resp.request.response.source).to.equal({
-                updated: new Date(),
-                name: 'status-service',
+                'name': 'status-service',
+                'agent': agent
             });
 
             done();
