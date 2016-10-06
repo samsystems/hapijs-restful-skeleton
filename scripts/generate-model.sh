@@ -68,14 +68,4 @@ function modelName {
   fi
 }
 modelName
-#sequelize model:create --name User --attributes first_name:string,last_name:string,bio:text
-#sequelize model:create --name User --attributes 'first_name:string last_name:string bio:text'
-#sequelize model:create --name User --attributes 'first_name:string, last_name:string, bio:text'
-#ARRAY=(one two three)
-#select yn in "Yes" "No"; do
-#    case $yn in
-#        Yes ) make install; break;;
-#        No ) exit;;
-#    esac
-#done
 
