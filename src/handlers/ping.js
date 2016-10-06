@@ -12,7 +12,7 @@ internals.status = (request, reply) => {
     const agent = pingService.logAgent(request.pre.collectAgentInfo);
 
     return reply({
-        name: "status-service",
+        name: 'status-service',
         agent
     });
 };
