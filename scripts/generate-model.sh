@@ -29,10 +29,13 @@ function typos() {
 function addAttr {
   attr=''
   petexit=''
+
   if [[ -n $allattr ]]; then #-n Con longitud mayor que 0
     petexit="(Press enter to generate)"
   fi
+
   read -p "Enter name for attribute$petexit:" attr
+
   if [[ -z $attr ]]; then
     if [[ -n $allattr ]]; then #-n Con longitud mayor que 0
       echo "Generating model"
@@ -42,6 +45,7 @@ function addAttr {
       exit;
     fi
   fi
+
   if [[ -n $attr ]]; then
     typos $attr
   fi
