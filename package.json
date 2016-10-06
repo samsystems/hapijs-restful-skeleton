@@ -7,7 +7,12 @@
     "test": "lab -t 1 test",
     "start": "nodemon --watch app --watch bootstrap.js bootstrap.js",
     "tdd": "nodemon --exec \"npm test\" --watch app --watch test --watch server.js",
-    "linter": "eslint index.js app test || true"
+    "linter": "eslint index.js app test || true",
+    "migrate": "sequelize db:migrate --config ./src/data/db-config.js",
+    "migrate:undo": "sequelize db:migrate:undo --config ./src/data/db-config.js",
+    "generate:migration": "scripts/generate-migration.sh",
+    "generate:seed": "scripts/generate-seed.sh",
+    "generate:model": "scripts/generate-model.sh"
   },
   "repository": {
     "type": "git",
@@ -28,6 +33,7 @@
     "good-console": "^6.1.2",
     "lab": "^11.1.0",
     "nodemon": "^1.10.2",
+    "sequelize-cli": "^2.4.0",
     "shrinkpack": "^0.17.0"
   },
   "dependencies": {
@@ -46,6 +52,7 @@
     "inert": "^4.0.2",
     "lodash": "^4.16.2",
     "scooter": "^4.0.0",
+    "sequelize": "^3.24.3",
     "vision": "^4.1.0"
   }
 }
