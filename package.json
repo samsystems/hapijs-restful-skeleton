@@ -4,6 +4,7 @@
   "description": "",
   "main": "bootstrap.js",
   "scripts": {
+    "postinstall": "direnv allow .",
     "test": "lab -t 1 test",
     "start": "nodemon --watch app --watch bootstrap.js bootstrap.js",
     "tdd": "nodemon --exec \"npm test\" --watch app --watch test --watch server.js",
