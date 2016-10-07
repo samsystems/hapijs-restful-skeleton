@@ -9,7 +9,7 @@
     "start": "nodemon --watch app --watch bootstrap.js bootstrap.js",
     "tdd": "nodemon --exec \"npm test\" --watch app --watch test --watch server.js",
     "linter": "eslint index.js app test || true",
-    "migrate": "sequelize db:migrate --config src/data/db-core.js",
+    "migrate": "sequelize db:migrate --config src/data/db-config.js",
     "migrate:undo": "sequelize db:migrate:undo --config src/core/db-config.js",
     "generate:migration": "bash scripts/generate-migration.sh",
     "generate:seed": "bash scripts/generate-seed.sh",
