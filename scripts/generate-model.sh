@@ -3,7 +3,7 @@ allattr=''
 
 function run {
   echo "sequelize model:create --name $model --attributes $allattr --config ${CONFIG} --models-path ${MODELS_PATH} --migrations-path ${MIGRATIONS_PATH}"
-  sequelize model:create --name $model --attributes $allattr --config ${CONFIG} --models-path ${MODELS_PATH} --migrations-path ${MIGRATIONS_PATH}
+  sequelize model:create --name $model --attributes '$allattr' --config ${CONFIG} --models-path ${MODELS_PATH} --migrations-path ${MIGRATIONS_PATH}
 }
 
 function addType(){
@@ -16,12 +16,12 @@ function addType(){
   addAttr
 }
 
+typeList=("string" "text" "uuid" "date" "dateonly" "integer" "float" "real" "double" "decimal" "boolean" "json")
 function typos() {
   echo "Select attr type:"
-  select yn in "string" "text"; do
-    case $yn in
-        string ) addType $1 "string"; break;;
-        text ) addType $1 "text"; break;;
+  select type in "${typeList[@]}"; do
+    case $type in
+        *) addType $1 $type;;
     esac
   done
 }
