@@ -1,5 +1,6 @@
 const Confidence = require('confidence');
 const config = require('./config');
+const dbConfig = require('./db-config');
 
 const criteria = {
     env: process.env.NODE_ENV
@@ -51,6 +52,22 @@ const manifest = {
         },
         {
             plugin: 'hapi-info'
+        },
+        {
+            plugin: {
+                register: './sequelize-integration',
+                options: [
+                    {
+                        env: `${process.env.NODE_ENV}`,
+                        name: `${process.env.DB_NAME}`, // identifier
+                        models: ['./src/models/*.js'],  // paths/globs to model files
+                        config: dbConfig, // sequelize config
+                        schema:'public',
+                        sync: true, // sync models - default false
+                        forceSync: true // force sync (drops tables) - default false
+                    }
+                ]
+            },
         },
         {
             plugin: {
