@@ -9,8 +9,8 @@
     "start": "nodemon --watch app --watch bootstrap.js bootstrap.js",
     "tdd": "nodemon --exec \"npm test\" --watch app --watch test --watch server.js",
     "linter": "eslint index.js app test || true",
-    "migrate": "sequelize db:migrate --config src/data/db-core.js",
-    "migrate:undo": "sequelize db:migrate:undo --config src/core/db-config.js",
+    "migrate": "sequelize db:migrate --config src/core/db-config.js --migrations-path ${MIGRATIONS_PATH}",
+    "migrate:undo": "sequelize db:migrate:undo --config src/core/db-config.js --migrations-path ${MIGRATIONS_PATH}",
     "generate:migration": "bash scripts/generate-migration.sh",
     "generate:seed": "bash scripts/generate-seed.sh",
     "generate:model": "bash scripts/generate-model.sh"
@@ -51,6 +51,7 @@
     "hapi-info": "^2.0.2",
     "hapi-swagger": "^7.2.0",
     "inert": "^4.0.2",
+    "joi": "^9.1.0",
     "lodash": "^4.16.2",
     "pg": "^6.1.0",
     "pg-hstore": "^2.3.2",
