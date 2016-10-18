@@ -13,8 +13,7 @@ const internals = {
 };
 
 internals.configure = function (opts) {
-    let config = opts.config[opts.env];
-    opts.sequelize = new Sequelize(config.database, config.username, config.password, config);
+    opts.sequelize = new Sequelize(opts.config.database, opts.config.username, opts.config.password, opts.config);
     return opts.sequelize.authenticate().then(() => {
 
         if (opts.models) {
