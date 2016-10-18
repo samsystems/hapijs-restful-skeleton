@@ -16,7 +16,23 @@ Clone the repository and install the dependencies.
     $ git clone https://github.com/samsystems/hapi-restful-skeleton.git my-project
     $ cd my-project
     $ npm install
+    Set up .envr
+    $ npm run migrate
     $ npm start
+
+# Defintion of global variables
+| Variable         | Value                       | Description                                    |
+|------------------|-----------------------------|------------------------------------------------|
+| NODE_ENV         | development                 | Api enviroment definition                      |
+| DB_HOSTNAME      | locahost                    | Host where is develpment database hosted       |
+| DB_NAME          | callermate                  | Name of database                               |
+| DB_DIALECT       | mysql                       | Dialect use to engage sequelize with database  |
+| DB_USER          | root                        | Database user                                  |
+| DB_PASSWORD      | root                        | Database password                              |
+| MIGRATIONS_PATH  | src/data/migrations         | Migrations files path                          |
+| MODELS_PATH      | src/models                  | Models files path                              |
+| SEEDERS_PATH     | src/data/seeders            | Location for data fixtures                     |
+| SECRET_KEY       | your own secret key         | Secret key for json web token sign             |
 
 ## Testing
 Two options exists to run tests, the first one is for development process and aims to practice Test Driven Development.
