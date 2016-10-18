@@ -1,6 +1,5 @@
 const Confidence = require('confidence');
 const config = require('./config');
-const dbConfig = require('./db-config');
 
 const criteria = {
     env: process.env.NODE_ENV
@@ -58,11 +57,9 @@ const manifest = {
                 register: './sequelize-integration',
                 options: [
                     {
-                        env: `${process.env.NODE_ENV}`,
-                        name: `${process.env.DB_NAME}`, // identifier
+                        name: config.get('/sequelize/database'), // identifier
                         models: ['./src/models/*.js'],  // paths/globs to model files
-                        config: dbConfig, // sequelize config
-                        schema:'public',
+                        config: config.get('/sequelize'), // sequelize config
                         sync: true, // sync models - default false
                         forceSync: true // force sync (drops tables) - default false
                     }

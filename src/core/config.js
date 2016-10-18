@@ -85,6 +85,13 @@ const config = {
                 cwd: `${process.cwd()}/src/pre-handlers`
             }
         }
+    },
+    sequelize:{
+        host:`${process.env.DB_HOSTNAME}`,
+        database:`${process.env.DB_NAME}`,
+        username:`${process.env.DB_USER}`,
+        password:`${process.env.DB_PASSWORD}`,
+        dialect:`${process.env.DB_DIALECT}`
     }
 };
 
