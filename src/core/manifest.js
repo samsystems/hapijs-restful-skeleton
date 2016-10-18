@@ -61,7 +61,7 @@ const manifest = {
                         models: ['./src/models/*.js'],  // paths/globs to model files
                         config: config.get('/sequelize'), // sequelize config
                         sync: true, // sync models - default false
-                        forceSync: true // force sync (drops tables) - default false
+                        forceSync: false // force sync (drops tables) - default false
                     }
                 ]
             },
