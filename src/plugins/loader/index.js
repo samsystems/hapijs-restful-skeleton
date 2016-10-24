@@ -120,7 +120,8 @@ internals.registerHandlers = (server, options, callback) => {
 
         const handlerName = camelCase(path.basename(file).replace(/.js/, ''));
         const handlerFile = require(file);
-        server.handler(handlerName, handlerFile);
+        let handler = new handlerFile(server);
+        server.handler(handlerName, handler.dispatch.bind(handler));
 
         server.log(['info', 'registerHandlers'], `registered handler in file ${handlerName}`);
     });
