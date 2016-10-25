@@ -5,9 +5,7 @@ class BaseHandler {
     }
 
     dispatch (route, options) {
-        this.route = route;
-        this.options = options;
-        return this.trigger.bind(this);
+        return this.trigger.bind(this, options.method);
     }
 
     getService (name) {
@@ -16,8 +14,9 @@ class BaseHandler {
         }
     }
 
-    trigger (request, reply) {
-        return this[this.options.method].call(this ,request, reply);
+    trigger (method, request, reply) {
+        this.em = request.getDb();
+        return this[method].call(this ,request, reply);
     }
 }
 

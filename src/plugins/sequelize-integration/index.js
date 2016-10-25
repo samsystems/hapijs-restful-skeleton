@@ -5,31 +5,63 @@ const Schema = require('./schema');
 const Models = require('./models');
 const DB = require('./DB');
 const Sequelize = require('sequelize');
+const _ = require('lodash');
+const Path = require('path');
 
 // Module globals
 const internals = {
     pluginName: 'sequelize-integration'
 };
 
+internals.getAllFuncs = function (obj) {
+    let props = []
+        , fns = {}
+        , objFns = ['constructor']
+        , inst = _.clone(obj);
+
+    obj = Object.getPrototypeOf(obj);
+    props = props.concat(Object.getOwnPropertyNames(obj));
+
+    _.each(props, (e) => {
+        if (typeof inst[e] == 'function' && _.indexOf(objFns, e) == -1){
+            fns[e] = inst[e];
+        }
+    });
+    return fns;
+};
+
 internals.configure = function (opts) {
     opts.sequelize = new Sequelize(opts.config.database, opts.config.username, opts.config.password, opts.config);
+    opts.sequelize.addHook('beforeDefine', function (attributes, options) {
+        let modelName = options.modelName.toLowerCase();
+        try {
+            let relativePath = Path.relative(__dirname, Path.normalize(opts.repository));
+            let filePath = Path.join(relativePath, modelName);
+            const repository = require(filePath);
+            let instance = new repository();
+            _.merge(options.instanceMethods, internals.getAllFuncs(instance) || {});
+        } catch (err) {
+        }
+    });
+
     return opts.sequelize.authenticate().then(() => {
 
         if (opts.models) {
 
-            return Models.getFiles(opts.models).then((files) => {
-                return Models.load(files, opts.sequelize.import.bind(opts.sequelize))
-                    .then((models) => Models.applyRelations(models))
-                    .then((models) => {
+            return Models.getFiles(opts.models)
+                .then((files) => {
+                    return Models.load(files, opts.sequelize.import.bind(opts.sequelize))
+                        .then((models) => Models.applyRelations(models))
+                        .then((models) => {
 
-                        if (opts.sync) {
-                            return opts.sequelize.sync({force: opts.forceSync})
-                                .then(() => Promise.resolve(new DB(opts.sequelize, models)));
-                        } else {
-                            return Promise.resolve(new DB(opts.sequelize, models));
-                        }
-                    });
-            });
+                            if (opts.sync) {
+                                return opts.sequelize.sync({force: opts.forceSync})
+                                    .then(() => Promise.resolve(new DB(opts.sequelize, models)));
+                            } else {
+                                return Promise.resolve(new DB(opts.sequelize, models));
+                            }
+                        });
+                });
 
         } else {
             return Promise.resolve(new DB(opts.sequelize, []));
