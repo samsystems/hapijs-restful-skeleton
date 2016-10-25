@@ -1,16 +1,17 @@
 'use strict';
 
 class DB {
-    constructor(sequelize, models) {
+
+    constructor (sequelize, models) {
         this.sequelize = sequelize;
         this.models = models;
     }
 
-    getModel(name) {
+    getModel (name) {
         return this.models.hasOwnProperty(name) ? this.models[name] : null;
     }
 
-    getModels() {
+    getModels () {
         return this.models;
     }
 }

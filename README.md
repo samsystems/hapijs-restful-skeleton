@@ -16,7 +16,7 @@ Clone the repository and install the dependencies.
     $ git clone https://github.com/samsystems/hapi-restful-skeleton.git my-project
     $ cd my-project
     $ npm install
-    Set up .envr
+    Set up .envrc
     $ npm run migrate
     $ npm start
 
