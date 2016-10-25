@@ -5,7 +5,6 @@ const Schema = require('./schema');
 const Models = require('./models');
 const DB = require('./DB');
 const Sequelize = require('sequelize');
-const _ = require('lodash');
 
 // Module globals
 const internals = {

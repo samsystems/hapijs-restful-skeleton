@@ -1,10 +1,6 @@
 const Confidence = require('confidence');
 const config = require('./config');
 
-const criteria = {
-    env: process.env.NODE_ENV
-};
-
 const manifest = {
     $meta: 'This file defines the plot device.',
     server: {

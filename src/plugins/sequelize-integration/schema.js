@@ -1,7 +1,6 @@
 'use strict';
 
 const Joi = require('joi');
-const Sequelize = require('sequelize');
 
 const internals = {};
 

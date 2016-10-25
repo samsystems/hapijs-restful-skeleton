@@ -39,7 +39,7 @@ function load(files, fn) {
 function applyRelations(models) {
     return new Promise((resolve) => {
         if (!models || typeof models !== 'object')
-        throw new Error('Can\'t apply relationships on invalid models object');
+            throw new Error('Can\'t apply relationships on invalid models object');
 
         Object.keys(models).forEach((name) => {
             if (models[name].hasOwnProperty('associate')) {

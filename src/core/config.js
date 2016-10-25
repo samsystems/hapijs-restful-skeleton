@@ -1,9 +1,5 @@
 const Confidence = require('confidence');
 
-const criteria = {
-    env: process.env.NODE_ENV
-};
-
 const config = {
     $meta: 'This file configures this project.',
     projectName: require('../../package').name,
@@ -86,12 +82,12 @@ const config = {
             }
         }
     },
-    sequelize:{
-        host:`${process.env.DB_HOSTNAME}`,
-        database:`${process.env.DB_NAME}`,
-        username:`${process.env.DB_USER}`,
-        password:`${process.env.DB_PASSWORD}`,
-        dialect:`${process.env.DB_DIALECT}`
+    sequelize: {
+        host: `${process.env.DB_HOSTNAME}`,
+        database: `${process.env.DB_NAME}`,
+        username: `${process.env.DB_USER}`,
+        password: `${process.env.DB_PASSWORD}`,
+        dialect: `${process.env.DB_DIALECT}`
     }
 };
 
