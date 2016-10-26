@@ -68,6 +68,11 @@ const manifest = {
                 register: './loader',
                 options: config.get('/loader')
             }
+        },
+        {
+            plugin: {
+                register: './error-handler'
+            }
         }
     ]
 };
