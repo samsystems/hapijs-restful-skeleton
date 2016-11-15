@@ -1,10 +1,18 @@
+/** @module Ping */
 const internals = module.exports = {};
 
+/**
+ * @api GET /ping
+ *
+ * @description simulating save in database and returning saved data plus status
+ * @param {Object} data Data object
+ * @return {Object} Returns data object
+ * @function logAgent
+ */
 internals.logAgent = {
     method: (data) => {
 
-        // simulating save in database and returning saved data plus id
-        data.id = '111-1111';
+        data.status = 'OK';
 
         return data;
     },

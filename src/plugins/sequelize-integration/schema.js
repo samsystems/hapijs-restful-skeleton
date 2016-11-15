@@ -17,6 +17,7 @@ internals.option = exports.option = Joi.object().keys({
             ],
             cidr: 'optional'
         }),
+        port: Joi.number().integer().default(3306),
         database: Joi.string().token().required(),
         username: Joi.string().token().required(),
         password: Joi.string().token().required(),
