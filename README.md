@@ -24,7 +24,8 @@ Clone the repository and install the dependencies.
 | Variable         | Value                       | Description                                    |
 |------------------|-----------------------------|------------------------------------------------|
 | NODE_ENV         | development                 | Api enviroment definition                      |
-| DB_HOSTNAME      | locahost                    | Host where is develpment database hosted       |
+| DB_HOSTNAME      | locahost                    | Host where is development database hosted      |
+| DB_PORT          | 3306                        | Port where is development database hosted      |
 | DB_NAME          | callermate                  | Name of database                               |
 | DB_DIALECT       | mysql                       | Dialect use to engage sequelize with database  |
 | DB_USER          | root                        | Database user                                  |

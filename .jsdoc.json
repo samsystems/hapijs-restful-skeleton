@@ -1,0 +1,34 @@
+{
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "source": {
+    "include": ["src", "package.json", "README.md"],
+    "exclude": [],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": [
+    "./node_modules/jsdoc-babel",
+    "./node_modules/jsdoc/plugins/markdown",
+    "./node_modules/loke-jsdoc-theme/plugins/async",
+    "./node_modules/loke-jsdoc-theme/plugins/rpc",
+    "./node_modules/loke-jsdoc-theme/plugins/api",
+    "./node_modules/loke-jsdoc-theme/plugins/timeout"
+  ],
+  "markdown": {
+    "excludeTags": ["author"]
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": true
+  },
+  "opts": {
+    "destination": "./docs",
+    "encoding": "utf8",
+    "private": true,
+    "recurse": true,
+    "template": "./node_modules/loke-jsdoc-theme/"
+  }
+}

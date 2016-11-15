@@ -12,7 +12,8 @@
     "migrate": "bash scripts/migrate.sh",
     "generate:migration": "bash scripts/generate-migration.sh",
     "generate:seed": "bash scripts/generate-seed.sh",
-    "generate:model": "bash scripts/generate-model.sh"
+    "generate:model": "bash scripts/generate-model.sh",
+    "docs": "jsdoc -c .jsdoc.json -t ./node_modules/loke-jsdoc-theme -R README.md -r --verbose"
   },
   "repository": {
     "type": "git",
@@ -34,13 +35,18 @@
     "lab": "^11.1.0",
     "nodemon": "^1.10.2",
     "sequelize-cli": "^2.4.0",
-    "shrinkpack": "^0.17.0"
+    "shrinkpack": "^0.17.0",
+    "jsdoc": "^3.4.2",
+    "jsdoc-babel": "^0.2.1",
+    "babel-core": "^6.18.2",
+    "loke-jsdoc-theme": "^2.1.0"
   },
   "dependencies": {
     "async": "^2.0.1",
     "blipp": "^2.3.0",
     "camelcase": "^3.0.0",
     "confidence": "^3.0.1",
+    "file": "^0.2.2",
     "glob": "^7.1.0",
     "glue": "^4.0.0",
     "good": "^7.0.2",
