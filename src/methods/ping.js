@@ -1,16 +1,20 @@
-const BaseHandler = require('../core/base-handler');
+/** @module Ping */
+const internals = module.exports = {};
 
-class PingHandler extends BaseHandler {
+/**
+ * @api GET /ping
+ *
+ * @description simulating save in database and returning saved data plus status
+ * @param {Object} data Data object
+ * @return {Object} Returns data object
+ * @function logAgent
+ */
+internals.logAgent = {
+    method: (data) => {
 
-    status(request, reply) {
-        const pingService = this.getService('ping');
-        const agent = pingService.logAgent(request.pre.collectAgentInfo);
+        data.status = 'OK';
 
-        return reply({
-            name: 'status-service',
-            agent
-        });
-    }
-}
-
-module.exports = PingHandler;
+        return data;
+    },
+    options: {}
+};

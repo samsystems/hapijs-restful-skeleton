@@ -1,18 +1,16 @@
-const internals = module.exports = (route, options) => {
+const BaseHandler = require('../core/base-handler');
 
-    return function (request, reply) {
+class PingHandler extends BaseHandler {
 
-        return internals[options.method](request, reply);
-    };
-};
+    status(request, reply) {
+        const pingService = this.getService('ping');
+        const agent = pingService.logAgent(request.pre.collectAgentInfo);
 
-internals.status = (request, reply) => {
+        return reply({
+            name: 'status-service',
+            agent
+        });
+    }
+}
 
-    const pingService = request.server.methods.ping;
-    const agent = pingService.logAgent(request.pre.collectAgentInfo);
-
-    return reply({
-        name: 'status-service',
-        agent
-    });
-};
+module.exports = PingHandler;
