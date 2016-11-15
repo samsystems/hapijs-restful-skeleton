@@ -13,35 +13,24 @@ const internals = {
     pluginName: 'sequelize-integration'
 };
 
-internals.getAllFuncs = function (obj) {
-    let props = []
-        , fns = {}
-        , objFns = ['constructor']
-        , inst = _.clone(obj);
-
-    obj = Object.getPrototypeOf(obj);
-    props = props.concat(Object.getOwnPropertyNames(obj));
-
-    _.each(props, (e) => {
-        if (typeof inst[e] == 'function' && _.indexOf(objFns, e) == -1){
-            fns[e] = inst[e];
-        }
-    });
-    return fns;
+internals.instanceMethods = {
+    toJsonApi: function () {
+        let model = this.Model;
+        let name = model.options.name.plural.toLowerCase();
+        let values = _.cloneDeep(this.dataValues);
+        _.unset(values, 'id');
+        return {
+            type: name,
+            id: this.id,
+            attributes: values
+        };
+    }
 };
 
 internals.configure = function (opts) {
     opts.sequelize = new Sequelize(opts.config.database, opts.config.username, opts.config.password, opts.config);
     opts.sequelize.addHook('beforeDefine', function (attributes, options) {
-        let modelName = options.modelName.toLowerCase();
-        try {
-            let relativePath = Path.relative(__dirname, Path.normalize(opts.repository));
-            let filePath = Path.join(relativePath, modelName);
-            const repository = require(filePath);
-            let instance = new repository();
-            _.merge(options.instanceMethods, internals.getAllFuncs(instance) || {});
-        } catch (err) {
-        }
+        _.merge(options.instanceMethods, internals.instanceMethods);
     });
 
     return opts.sequelize.authenticate().then(() => {
