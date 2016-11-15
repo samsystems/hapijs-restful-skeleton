@@ -11,8 +11,7 @@ run((err, server) => {
         if (err) {
 
             // Fancy error handling here
-            console.error( 'Error was handled!' );
-            console.error( err );
+            server.log(['error', err], 'Error was handled!');
         }
 
         const connection = server.select(['api']);

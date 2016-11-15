@@ -1,10 +1,6 @@
 const Confidence = require('confidence');
 const config = require('./config');
 
-const criteria = {
-    env: process.env.NODE_ENV
-};
-
 const manifest = {
     $meta: 'This file defines the plot device.',
     server: {
@@ -59,6 +55,7 @@ const manifest = {
                     {
                         name: config.get('/sequelize/database'), // identifier
                         models: ['./src/models/*.js'],  // paths/globs to model files
+                        repository: './src/models/repository',  // paths to model files
                         config: config.get('/sequelize'), // sequelize config
                         sync: true, // sync models - default false
                         forceSync: false // force sync (drops tables) - default false
@@ -70,6 +67,11 @@ const manifest = {
             plugin: {
                 register: './loader',
                 options: config.get('/loader')
+            }
+        },
+        {
+            plugin: {
+                register: './error-handler'
             }
         }
     ]

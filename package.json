@@ -1,5 +1,5 @@
 {
-  "name": "service-skeleton",
+  "name": "hapijs-restful-skeleton",
   "version": "1.0.0",
   "description": "",
   "main": "bootstrap.js",
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/samsystems/service-skeleton.git"
+    "url": "git+https://github.com/samsystems/hapijs-restful-skeleton.git"
   },
-  "author": "rolian85@gmail.com",
+  "author": "development@samsystems.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/samsystems/service-skeleton/issues"
+    "url": "https://github.com/samsystems/hapijs-restful-skeleton/issues"
   },
-  "homepage": "https://github.com/samsystems/service-skeleton#readme",
+  "homepage": "https://github.com/samsystems/hapijs-restful-skeleton#readme",
   "engines": {
     "node": ">=6.7.0"
   },
