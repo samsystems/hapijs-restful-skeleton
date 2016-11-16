@@ -71,7 +71,7 @@ const manifest = {
         },
         {
             plugin: {
-                register: './error-handler'
+                register: './jsonapi'
             }
         }
     ]
