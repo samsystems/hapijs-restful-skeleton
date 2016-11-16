@@ -30,7 +30,8 @@ internals.instanceMethods = {
 internals.configure = function (opts) {
     opts.sequelize = new Sequelize(opts.config.database, opts.config.username, opts.config.password, opts.config);
     opts.sequelize.addHook('beforeDefine', function (attributes, options) {
-        _.merge(options.instanceMethods, internals.instanceMethods);
+        options.instanceMethods = options.instanceMethods || {};
+        _.merge(options.instanceMethods, _.clone(internals.instanceMethods));
     });
 
     return opts.sequelize.authenticate().then(() => {
