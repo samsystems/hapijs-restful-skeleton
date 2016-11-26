@@ -7,6 +7,7 @@
     "postinstall": "direnv allow .",
     "test": "lab -t 1 test",
     "start": "nodemon --watch app --watch bootstrap.js bootstrap.js",
+    "debug": "nodemon --debug --watch src bootstrap.js",
     "tdd": "nodemon --exec \"npm test\" --watch app --watch test --watch server.js",
     "linter": "eslint index.js app test || true",
     "migrate": "bash scripts/migrate.sh",
@@ -61,6 +62,7 @@
     "mysql": "^2.11.1",
     "scooter": "^4.0.0",
     "sequelize": "^3.24.3",
+    "twilio": "^2.11.1",
     "vision": "^4.1.0"
   }
 }
