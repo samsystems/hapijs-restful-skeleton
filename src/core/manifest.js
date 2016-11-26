@@ -73,6 +73,12 @@ const manifest = {
             plugin: {
                 register: './jsonapi'
             }
+        },
+        {
+            plugin: {
+                register: './twilio-integration',
+                options: config.get('/twilio')
+            }
         }
     ]
 };

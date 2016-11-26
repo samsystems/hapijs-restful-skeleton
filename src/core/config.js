@@ -89,6 +89,12 @@ const config = {
         username: `${process.env.DB_USER}`,
         password: `${process.env.DB_PASSWORD}`,
         dialect: `${process.env.DB_DIALECT}`
+    },
+
+    twilio: {
+        accountSid: 'AC982b367cfe819ea34872dda6f1c4d78c',
+        authToken: 'f562587b367c7ca0e7e22751fec69ed3',
+        twimlAppSid: 'APc58bd3bc65c8bca5e6314a184c183b59',
     }
 };
 
