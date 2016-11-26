@@ -10,13 +10,13 @@ internals.option = exports.option = Joi.object().keys({
     models: Joi.alternatives().try(Joi.string(), Joi.array().items(Joi.string())),
     repository: Joi.alternatives().try(Joi.string(), Joi.array().items(Joi.string())),
     config: Joi.object().keys({
-        host: Joi.string().ip({
+        host: Joi.alternatives().try(Joi.string().ip({
             version: [
                 'ipv4',
                 'ipv6'
             ],
             cidr: 'optional'
-        }),
+        }), Joi.string().hostname()),
         port: Joi.number().integer().default(3306),
         database: Joi.string().token().required(),
         username: Joi.string().token().required(),
