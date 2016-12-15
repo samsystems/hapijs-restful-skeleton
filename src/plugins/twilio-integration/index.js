@@ -1,7 +1,6 @@
 'use strict';
 
 let twilio = require('twilio');
-const config = require('../../core/config');
 
 let twilioIntegration = {
     register: function (server, options, next) {
@@ -17,7 +16,7 @@ let twilioIntegration = {
         });
         server.method('createCall', function(to, from){
             client.calls.create({
-                url: "http://1d171eb6.ngrok.io/twilio/xml", //TODO change for public url
+                url: "http://af9a23ac.ngrok.io/twilio/xml", //TODO change for public url
                 to: to,
                 from: from
             }, function(err, call) {
@@ -40,7 +39,9 @@ let twilioIntegration = {
             handler: function(request, reply) {
                 let capability = new twilio.Capability(options.accountSid, options.authToken);
                 capability.allowClientOutgoing(options.twimlAppSid);
-                let token = capability.generate();
+                let token = {
+                    token: capability.generate()
+                };
                 reply(token);
             }
         });
