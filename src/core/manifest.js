@@ -16,7 +16,14 @@ const manifest = {
     connections: [{
         host: config.get('/host/api'),
         port: config.get('/port/api'),
-        labels: ['api']
+        labels: ['api'],
+        routes: {
+            cors: {
+                origin: ['*'],
+                additionalHeaders: ['token']
+            },
+            auth:false
+        }
     }],
     registrations: [
         {

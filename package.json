@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "direnv allow .",
     "test": "lab -t 1 test",
-    "start": "nodemon --watch app --watch bootstrap.js bootstrap.js",
+    "start": "nodemon --watch src bootstrap.js",
     "debug": "nodemon --debug --watch src bootstrap.js",
     "tdd": "nodemon --exec \"npm test\" --watch app --watch test --watch server.js",
     "linter": "eslint index.js app test || true",
