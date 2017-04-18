@@ -7,11 +7,16 @@ class DB {
         this.models = models;
     }
 
-    getModel (name) {
+    getModel(name) {
         return this.models.hasOwnProperty(name) ? this.models[name] : null;
     }
 
-    getModels () {
+    setRepository(){
+        let model = this.getModel
+
+    }
+
+    getModels() {
         return this.models;
     }
 }
