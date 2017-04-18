@@ -13,26 +13,8 @@ const internals = {
     pluginName: 'sequelize-integration'
 };
 
-internals.instanceMethods = {
-    toJsonApi: function () {
-        let model = this.Model;
-        let name = model.options.name.plural.toLowerCase();
-        let values = _.cloneDeep(this.dataValues);
-        _.unset(values, 'id');
-        return {
-            type: name,
-            id: this.id,
-            attributes: values
-        };
-    }
-};
-
 internals.configure = function (opts) {
     opts.sequelize = new Sequelize(opts.config.database, opts.config.username, opts.config.password, opts.config);
-    opts.sequelize.addHook('beforeDefine', function (attributes, options) {
-        options.instanceMethods = options.instanceMethods || {};
-        _.merge(options.instanceMethods, _.clone(internals.instanceMethods));
-    });
 
     return opts.sequelize.authenticate().then(() => {
 
@@ -77,6 +59,13 @@ exports.register = function (server, options, next) {
     };
 
     server.decorate('request', 'getDb', getDb, {apply: true});
+    server.decorate('server', 'getDb', function (name) {
+        if (!name || !this.plugins[internals.pluginName].hasOwnProperty(name)) {
+            const key = Object.keys(this.plugins[internals.pluginName]).shift();
+            return this.plugins[internals.pluginName][key];
+        }
+        return this.plugins[internals.pluginName][name];
+    });
 
     const configured = options.reduce((acc, opts) => {
         return [].concat(acc, [
