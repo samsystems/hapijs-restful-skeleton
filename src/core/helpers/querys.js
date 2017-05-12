@@ -1,4 +1,3 @@
-'use strict';
 const _ = require('lodash');
 const internals = module.exports = {};
 
@@ -7,7 +6,7 @@ internals.getSequilizeQueryOpts = (filters) => {
     let page = _.get(filters, 'page', 1);
     let opts = {
         offset: limit * (page - 1),
-        limit: limit
+        limit: parseInt(limit)
     };
     let sort = _.get(filters, 'sort', false);
     let fields = _.get(filters, 'fields', false);

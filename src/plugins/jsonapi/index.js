@@ -1,4 +1,3 @@
-"use strict";
 const internals = {};
 const _ = require('lodash');
 const Exception = require('../../core/error/base');
