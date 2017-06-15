@@ -29,7 +29,7 @@ class BaseHandler {
     }
 
     findOne(request, reply) {
-        let resp = this.service.findOne(this.model, request.params.id);
+        let resp = this.service.findOne(this.model, request.params.id, this.relatedEntities);
         reply.serialize(this.serializer, resp);
     }
 
