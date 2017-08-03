@@ -83,7 +83,7 @@ const manifest = {
         },
         {
             plugin: {
-                register: './twilio-integration',
+                register: 'hapi-twilio-integration',
                 options: config.get('/twilio')
             }
         }
