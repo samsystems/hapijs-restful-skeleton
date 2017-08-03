@@ -59,7 +59,7 @@
     "hapi-auth-jwt2": "^7.1.3",
     "hapi-info": "^2.0.2",
     "hapi-swagger": "^7.2.0",
-    "hapi-twilio-integration": "0.0.1",
+    "@samsystems/hapi-twilio-integration": "0.0.1",
     "inert": "^4.0.2",
     "joi": "^9.1.0",
     "json-api-serializer": "^1.3.0",
