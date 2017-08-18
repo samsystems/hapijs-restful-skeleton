@@ -6,14 +6,15 @@
   "scripts": {
     "postinstall": "direnv allow .",
     "test": "lab -t 1 test",
+    "prod": "pm2-docker start bootstrap.js",
     "start": "nodemon --watch src bootstrap.js",
     "debug": "nodemon --debug --watch src bootstrap.js",
     "tdd": "nodemon --exec \"npm test\" --watch app --watch test --watch server.js",
     "linter": "eslint index.js app test || true",
     "migrate": "bash scripts/migrate.sh",
-    "generate:migration": "bash scripts/generate-migration.sh",
-    "generate:seed": "bash scripts/generate-seed.sh",
-    "generate:model": "bash scripts/generate-model.sh",
+    "generate:migration": "sh scripts/generate-migration.sh",
+    "generate:seed": "sh scripts/generate-seed.sh",
+    "generate:model": "sh scripts/generate-model.sh",
     "docs": "jsdoc -c .jsdoc.json -t ./node_modules/loke-jsdoc-theme -R README.md -r --verbose"
   },
   "repository": {
@@ -68,9 +69,10 @@
     "lodash": "^4.16.2",
     "moment": "^2.15.1",
     "mysql": "^2.12.0",
+    "mysql2": "^1.4.0",
     "rxjs": "^5.0.1",
     "scooter": "^4.0.0",
-    "sequelize": "^3.24.4",
+    "sequelize": "^4.4.2",
     "vision": "^4.1.0"
   }
 }
