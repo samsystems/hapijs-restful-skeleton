@@ -11,7 +11,7 @@
     "debug": "nodemon --debug --watch src bootstrap.js",
     "tdd": "nodemon --exec \"npm test\" --watch app --watch test --watch server.js",
     "linter": "eslint index.js app test || true",
-    "migrate": "bash scripts/migrate.sh",
+    "migrate": "sh scripts/migrate.sh",
     "generate:migration": "sh scripts/generate-migration.sh",
     "generate:seed": "sh scripts/generate-seed.sh",
     "generate:model": "sh scripts/generate-model.sh",
