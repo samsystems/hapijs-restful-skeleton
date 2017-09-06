@@ -86,6 +86,14 @@ const manifest = {
                 register: '@samsystems/hapi-twilio-integration',
                 options: config.get('/twilio')
             }
+        },
+        {
+            plugin: {
+                register: 'hapi-query-filters',
+                options: {
+                    ignoredKeys: ['limit', 'page', 'sort', 'fields']
+                }
+            }
         }
     ]
 };
