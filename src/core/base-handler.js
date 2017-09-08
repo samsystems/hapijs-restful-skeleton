@@ -24,29 +24,29 @@ class BaseHandler {
     }
 
     list(request, reply) {
-        let resp = this.service.list(this.model, request.query, this.relatedEntities);
+        let resp = this.service.list(request.db.getModel(this.model), request.query, request.db.getRelatedEntities(this.relatedEntities));
         reply.serialize(this.serializer, resp, { total: 'count', data: 'rows'});
     }
 
     findOne(request, reply) {
-        let resp = this.service.findOne(this.model, request.params.id, this.relatedEntities);
+        let resp = this.service.findOne(request.db.getModel(this.model), request.params.id, request.db.getRelatedEntities(this.relatedEntities));
         reply.serialize(this.serializer, resp);
     }
 
     create(request, reply) {
         request.deserializePayload(this.serializer, (errs, payload) => {
-            let resp = this.service.create(this.model, payload, this.relatedEntities);
+            let resp = this.service.create(request.db.getModel(this.model), payload, request.db.getRelatedEntities(this.relatedEntities));
             reply.serialize(this.serializer, resp);
         });
     }
 
     update(request, reply) {
-        let resp = this.service.update(this.model, request.params.id, request.payload.data.attributes);
+        let resp = this.service.update(request.db.getModel(this.model), request.params.id, request.payload.data.attributes);
         reply.serialize(this.serializer, resp);
     }
 
     delete(request, reply) {
-        let resp = this.service.delete(this.model, request.params.id);
+        let resp = this.service.delete(request.db.getModel(this.model), request.params.id);
         reply.serialize(this.serializer, resp);
     }
 }
