@@ -57,7 +57,7 @@ const manifest = {
         },
         {
             plugin: {
-                register: './sequelize-integration',
+                register: '@samsystems/hapi-sequelize',
                 options: [
                     {
                         name: config.get('/sequelize/database'), // identifier
