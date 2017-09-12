@@ -6,7 +6,6 @@ class BaseHandler {
         this.model = null;
         this.relatedEntities = null;
         this.service = this.getService('crud');
-        this.em = server.getDb();
     }
 
     dispatch(route, options) {
