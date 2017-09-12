@@ -60,7 +60,6 @@ const manifest = {
                 register: '@samsystems/hapi-sequelize',
                 options: [
                     {
-                        name: config.get('/sequelize/database'), // identifier
                         models: ['./src/models/entity/*.js'],  // paths/globs to model files
                         repository: './src/models/repository/*.js',  // paths to model files
                         config: config.get('/sequelize'), // sequelize config
