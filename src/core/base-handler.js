@@ -33,20 +33,30 @@ class BaseHandler {
     }
 
     create(request, reply) {
-        request.deserializePayload(this.serializer, (errs, payload) => {
-            let resp = this.service.create(request.db.getModel(this.model), payload, request.db.getRelatedEntities(this.relatedEntities));
-            reply.serialize(this.serializer, resp);
-        });
+        if(request.headers.accept === 'application/vnd.api+json') {
+            request.deserializePayload(this.serializer, (errs, payload) => {
+                let resp = this.service.create(request.db.getModel(this.model), payload, request.db.getRelatedEntities(this.relatedEntities));
+                reply.serialize(this.serializer, resp);
+            });
+        }
+        else {
+            let resp = this.service.create(request.db.getModel(this.model), request.payload, request.db.getRelatedEntities(this.relatedEntities));
+            reply(resp);
+        }
     }
 
     update(request, reply) {
-        let resp = this.service.update(request.db.getModel(this.model), request.params.id, request.payload.data.attributes);
-        reply.serialize(this.serializer, resp);
+        if(request.headers.accept === 'application/vnd.api+json') {
+            reply.serialize(this.serializer, this.service.update(request.db.getModel(this.model), request.params.id, request.payload.data.attributes));
+        }
+        else {
+            reply(this.service.update(request.db.getModel(this.model), request.params.id, request.payload));
+        }
     }
 
     delete(request, reply) {
         let resp = this.service.delete(request.db.getModel(this.model), request.params.id);
-        reply.serialize(this.serializer, resp);
+        reply(resp);
     }
 }
 
