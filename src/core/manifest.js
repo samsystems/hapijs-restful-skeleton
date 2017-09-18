@@ -93,6 +93,12 @@ const manifest = {
                     ignoredKeys: ['limit', 'page', 'sort', 'fields']
                 }
             }
+        },
+        {
+            plugin: {
+                register: './mongo',
+                options: config.get('/mongo')
+            }
         }
     ]
 };
