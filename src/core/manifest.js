@@ -16,7 +16,14 @@ const manifest = {
     connections: [{
         host: config.get('/host/api'),
         port: config.get('/port/api'),
-        labels: ['api']
+        labels: ['api'],
+        routes: {
+            cors: {
+                origin: ['*'],
+                additionalHeaders: ['token']
+            },
+            auth:false
+        }
     }],
     registrations: [
         {
@@ -50,12 +57,11 @@ const manifest = {
         },
         {
             plugin: {
-                register: './sequelize-integration',
+                register: '@samsystems/hapi-sequelize',
                 options: [
                     {
-                        name: config.get('/sequelize/database'), // identifier
-                        models: ['./src/models/*.js'],  // paths/globs to model files
-                        repository: './src/models/repository',  // paths to model files
+                        models: ['./src/models/entity/*.js'],  // paths/globs to model files
+                        repository: './src/models/repository/*.js',  // paths to model files
                         config: config.get('/sequelize'), // sequelize config
                         sync: true, // sync models - default false
                         forceSync: false // force sync (drops tables) - default false
@@ -71,7 +77,27 @@ const manifest = {
         },
         {
             plugin: {
-                register: './error-handler'
+                register: './jsonapi'
+            }
+        },
+        {
+            plugin: {
+                register: '@samsystems/hapi-twilio-integration',
+                options: config.get('/twilio')
+            }
+        },
+        {
+            plugin: {
+                register: 'hapi-query-filters',
+                options: {
+                    ignoredKeys: ['limit', 'page', 'sort', 'fields']
+                }
+            }
+        },
+        {
+            plugin: {
+                register: './mongo',
+                options: config.get('/mongo')
             }
         }
     ]

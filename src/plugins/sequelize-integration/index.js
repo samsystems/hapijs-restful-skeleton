@@ -13,36 +13,8 @@ const internals = {
     pluginName: 'sequelize-integration'
 };
 
-internals.getAllFuncs = function (obj) {
-    let props = []
-        , fns = {}
-        , objFns = ['constructor']
-        , inst = _.clone(obj);
-
-    obj = Object.getPrototypeOf(obj);
-    props = props.concat(Object.getOwnPropertyNames(obj));
-
-    _.each(props, (e) => {
-        if (typeof inst[e] == 'function' && _.indexOf(objFns, e) == -1){
-            fns[e] = inst[e];
-        }
-    });
-    return fns;
-};
-
 internals.configure = function (opts) {
     opts.sequelize = new Sequelize(opts.config.database, opts.config.username, opts.config.password, opts.config);
-    opts.sequelize.addHook('beforeDefine', function (attributes, options) {
-        let modelName = options.modelName.toLowerCase();
-        try {
-            let relativePath = Path.relative(__dirname, Path.normalize(opts.repository));
-            let filePath = Path.join(relativePath, modelName);
-            const repository = require(filePath);
-            let instance = new repository();
-            _.merge(options.instanceMethods, internals.getAllFuncs(instance) || {});
-        } catch (err) {
-        }
-    });
 
     return opts.sequelize.authenticate().then(() => {
 
@@ -87,6 +59,13 @@ exports.register = function (server, options, next) {
     };
 
     server.decorate('request', 'getDb', getDb, {apply: true});
+    server.decorate('server', 'getDb', function (name) {
+        if (!name || !this.plugins[internals.pluginName].hasOwnProperty(name)) {
+            const key = Object.keys(this.plugins[internals.pluginName]).shift();
+            return this.plugins[internals.pluginName][key];
+        }
+        return this.plugins[internals.pluginName][name];
+    });
 
     const configured = options.reduce((acc, opts) => {
         return [].concat(acc, [
