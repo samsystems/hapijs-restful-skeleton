@@ -44,7 +44,7 @@
     "loke-jsdoc-theme": "^2.1.0"
   },
   "dependencies": {
-    "@samsystems/hapi-sequelize": "^0.0.7",
+    "@samsystems/hapi-sequelize": "0.0.8",
     "@samsystems/hapi-twilio-integration": "^0.0.4",
     "assert": "^1.4.1",
     "async": "^2.0.1",
