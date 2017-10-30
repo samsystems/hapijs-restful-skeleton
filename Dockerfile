@@ -1,5 +1,5 @@
 FROM node:alpine
-RUN apk --no-cache curl
+RUN apk add --no-cache curl
 RUN npm install -g pm2
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
