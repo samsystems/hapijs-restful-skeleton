@@ -2,11 +2,12 @@ const internals = module.exports = {};
 const EntityNotFoundException = require('../core/error/notfound-exception');
 const queryHelper = require('../core/helpers/querys');
 const _ = require('lodash');
+const sequelizeError = require('../core/error/sequelize');
 
 internals.list = {
     method: (entity, query = null, relatedEntities = null) => {
         let opts = queryHelper.getSequilizeQueryOpts(query, relatedEntities);
-        return entity.findAndCountAll(opts);
+        return entity.findAndCountAll(opts).then(data => data).catch(sequelizeError);
     },
     options: {}
 };
@@ -17,7 +18,7 @@ internals.findOne = {
             if (!data)
                 throw new EntityNotFoundException(entity.name + ' resource not found');
             return data;
-        });
+        }).catch(sequelizeError);
     },
     options: {}
 };
@@ -26,12 +27,12 @@ internals.create = {
     method: (entity, data, relatedEntities = null) => {
 
         if (_.isArray(data)) {
-            return entity.bulkCreate(data);
+            return entity.bulkCreate(data).then(data => data).catch(sequelizeError);
         } else {
             if(relatedEntities) {
-                return entity.build(data, {include: relatedEntities}).save();
+                return entity.build(data, {include: relatedEntities}).save().then(data => data).catch(sequelizeError);
             }
-            return entity.build(data).save();
+            return entity.build(data).save().then(data => data).catch(sequelizeError);
         }
     },
     options: {}
@@ -49,10 +50,10 @@ internals.update = {
                     user[field] = value;
                 });
                 if (_.keys(user._changed).length)
-                    return user.save();
+                    return user.save().then(data => data).catch(sequelizeError);
                 else
                     return user;
-            });
+            }).catch(sequelizeError);
     }
 };
 
@@ -63,7 +64,7 @@ internals.delete = {
             .then((user) => {
                 if (!user)
                     throw new EntityNotFoundException(entity.name + ' resource not found');
-                return user.destroy();
+                return user.destroy().then(data => data).catch(sequelizeError);
             });
     }
 };
