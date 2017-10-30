@@ -23,31 +23,36 @@ class BaseHandler {
     }
 
     list(request, reply) {
-        let resp = this.service.list(request.db.getModel(this.model), request.query, request.db.getRelatedEntities(this.relatedEntities));
+        let resp = this.service.list(request.db.getModel(this.model), request.query,
+            request.db.getRelatedEntities(this.relatedEntities));
         reply.serialize(this.serializer, resp, { total: 'count', data: 'rows'});
     }
 
     findOne(request, reply) {
-        let resp = this.service.findOne(request.db.getModel(this.model), request.params.id, request.db.getRelatedEntities(this.relatedEntities));
+        let resp = this.service.findOne(request.db.getModel(this.model), request.params.id,
+            request.db.getRelatedEntities(this.relatedEntities));
         reply.serialize(this.serializer, resp);
     }
 
     create(request, reply) {
         if(request.headers.accept === 'application/vnd.api+json') {
             request.deserializePayload(this.serializer, (errs, payload) => {
-                let resp = this.service.create(request.db.getModel(this.model), payload, request.db.getRelatedEntities(this.relatedEntities));
+                let resp = this.service.create(request.db.getModel(this.model), payload,
+                    request.db.getRelatedEntities(this.relatedEntities));
                 reply.serialize(this.serializer, resp);
             });
         }
         else {
-            let resp = this.service.create(request.db.getModel(this.model), request.payload, request.db.getRelatedEntities(this.relatedEntities));
+            let resp = this.service.create(request.db.getModel(this.model), request.payload,
+                request.db.getRelatedEntities(this.relatedEntities));
             reply(resp);
         }
     }
 
     update(request, reply) {
         if(request.headers.accept === 'application/vnd.api+json') {
-            reply.serialize(this.serializer, this.service.update(request.db.getModel(this.model), request.params.id, request.payload.data.attributes));
+            reply.serialize(this.serializer, this.service.update(request.db.getModel(this.model),
+                request.params.id, request.payload.data.attributes));
         }
         else {
             reply(this.service.update(request.db.getModel(this.model), request.params.id, request.payload));
