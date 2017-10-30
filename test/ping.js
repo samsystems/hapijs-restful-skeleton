@@ -1,29 +1,51 @@
 const Code = require('code');
 const Lab = require('lab');
-const pluginLoad = require('../src/plugins/loader');
-const config = require('../src/core/config');
 const mockServer = require('./mocks/server');
+const _ = require('lodash');
 
 const lab = exports.lab = Lab.script();
-const describe = lab.describe;
-const before = lab.before;
-const after = lab.after;
-const it = lab.it;
-const expect = Code.expect;
+const {experiment, before, after, test} = lab;
+const {expect} = Code;
 
 let server;
 
 before((done) => {
-    'use strict';
 
-    mockServer(function (obj) {
+    mockServer((obj) => {
         server = obj;
         server.register([{
-            register: pluginLoad,
-            options: config.get('/loader')
-        }, {
             register: require('scooter')
-        }], done);
+        }]);
+        const pingService = require('../src/methods/ping');
+        _.mapKeys(pingService, (method, key) => {
+            server.method('ping.'+ `${key}`, method.method, method.options || {});
+        });
+        const handlerName = 'ping';
+        const handlerFile = require('../src/handlers/ping');
+        let handler = new handlerFile(server);
+        server.handler(handlerName, handler.dispatch.bind(handler));
+        const preHandlers = require('../src/pre-handlers/ping');
+        let pres = {};
+        pres['ping'] = {};
+        _.mapKeys(preHandlers, (preHandler, key) => {
+            pres['ping'][key] = {
+                method: preHandler,
+                assign: key
+            };
+        });
+        server.decorate('server', 'preHandlers', pres);
+        server.decorate('request', 'preHandlers', pres);
+        server.route({
+            method: 'GET',
+            path: '/ping',
+            handler: { ping: { method: 'status' } },
+            config: {
+                pre: [
+                    server.preHandlers.ping.collectAgentInfo
+                ]
+            }
+        });
+        done();
     });
 });
 
@@ -32,27 +54,20 @@ after((done) => {
     server.stop(done);
 });
 
-describe('Get ping call', function () {
+experiment('Get ping call', () => {
     'use strict';
 
-    it('received pong', function (done) {
-        var options = {
-            method: 'GET',
-            url: '/ping'
-        };
-
-        server.inject(options, (resp) => {
+    test('received pong', (done) => {
+        server.inject('/ping', (resp) => {
             const pingService = resp.request.server.methods.ping;
             const agent = pingService.logAgent(resp.request.pre.collectAgentInfo);
-
-            expect(200).to.equal(200);
-            expect(resp.request.response.source).to.equal({
-                'name': 'status-service',
-                'agent': agent
-            });
-
+            expect(resp.statusCode).to.equal(200);
+            expect(JSON.parse(resp.payload).agent.status).to.equal('OK');
+            expect(JSON.parse(resp.payload).agent).to.equal(agent);
             done();
+
         });
     });
+
 
 });
