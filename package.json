@@ -5,7 +5,7 @@
   "main": "bootstrap.js",
   "scripts": {
     "postinstall": "direnv allow .",
-    "test": "lab -t 1 test",
+    "test": "lab -v test",
     "prod": "pm2-docker start bootstrap.js",
     "start": "nodemon --watch src bootstrap.js",
     "debug": "nodemon --inspect=0.0.0.0:5858 --watch src bootstrap.js",
