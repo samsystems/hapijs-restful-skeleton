@@ -20,7 +20,7 @@ const manifest = {
         routes: {
             cors: {
                 origin: ['*'],
-                additionalHeaders: ['token']
+                additionalHeaders: ['token', 'apikey']
             },
             auth:false
         }
